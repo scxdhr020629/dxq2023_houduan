@@ -1,6 +1,7 @@
 package com.example.testjpa.service;
 
 import com.example.testjpa.entity.StudentEntity;
+import com.example.testjpa.entity.StudentPhysicalEntity;
 import com.example.testjpa.formbean.GradeFormBean;
 
 import java.util.List;
@@ -11,4 +12,8 @@ public interface StudentService {
 
     // 根据student_iid 来进行查询学生的成绩信息
     public List<Object[]> selectStudentGradeByStudentIid(Integer studentIid);
+
+    public List<StudentPhysicalEntity> selectStudentPhysicalEntityGrade(Integer studentIid);
+
+
 }

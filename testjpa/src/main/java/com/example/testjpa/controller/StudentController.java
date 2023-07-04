@@ -1,6 +1,7 @@
 package com.example.testjpa.controller;
 
 import com.example.testjpa.entity.StudentEntity;
+import com.example.testjpa.entity.StudentPhysicalEntity;
 import com.example.testjpa.result.ResponseData;
 import com.example.testjpa.result.ResponseMsg;
 import com.example.testjpa.service.StudentService;
@@ -38,7 +39,7 @@ public class StudentController {
 
 
     /**
-     * 根据学生student_iid 来查询学生的成绩
+     * 根据学生student_iid 来查询学生的课程成绩
      */
 
     @PostMapping("/select-grade-by-student-iid")
@@ -46,5 +47,12 @@ public class StudentController {
         List<Object[]> ans= studentService.selectStudentGradeByStudentIid(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
-
+    /**
+     * 根据student_iid 来查询学生的体测相关信息
+     */
+    @PostMapping("/select-physical-grade-by-student-iid")
+    public ResponseData selectPhysicalGradeByStudentIid(@RequestBody Map<String,String> queryExample){
+        List<StudentPhysicalEntity> ans = studentService.selectStudentPhysicalEntityGrade(Integer.parseInt(queryExample.get("student_iid")));;
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
 }
