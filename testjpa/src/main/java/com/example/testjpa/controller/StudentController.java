@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,4 +35,16 @@ public class StudentController {
             return new ResponseData(ResponseMsg.FAILED,null);
         }
     }
+
+
+    /**
+     * 根据学生student_iid 来查询学生的成绩
+     */
+
+    @PostMapping("/select-grade-by-student-iid")
+    public ResponseData selectGradeByStudentIid(@RequestBody Map<String,String> queryExample){
+        List<Object[]> ans= studentService.selectStudentGradeByStudentIid(Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
 }
