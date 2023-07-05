@@ -10,6 +10,8 @@ import com.example.testjpa.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,18 +29,39 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Object[]> selectStudentGradeByStudentIid(Integer studentIid) {
+    public List<GradeFormBean> selectStudentGradeByStudentIid(Integer studentIid) {
 
         List<Object[]> ans = studentEntityRepository.findStudentTeacherCourse(studentIid);
-
-        return ans;
+        List<GradeFormBean> newAns = new ArrayList<>();
+        // 对查询出来的数据做一个格式的处理
+        for(int i=0;i<ans.size();i++){
+            GradeFormBean gradeFormBean = new GradeFormBean();
+            gradeFormBean.setIid((Integer) ans.get(i)[0]);
+            gradeFormBean.setCourseName( ans.get(i)[1].toString());
+            gradeFormBean.setCredit(Double.parseDouble(ans.get(i)[2].toString()));
+            gradeFormBean.setGrade(Double.parseDouble(ans.get(i)[3].toString()));
+            gradeFormBean.setBeginDate(Date.valueOf(ans.get(i)[4].toString()));
+            newAns.add(gradeFormBean);
+        }
+        return newAns;
 
     }
 
     @Override
-    public List<Object[]> selectStudentGradeByStudentIidAndYear(Integer studentIid, Integer begin_year) {
+    public List<GradeFormBean> selectStudentGradeByStudentIidAndYear(Integer studentIid, Integer begin_year) {
         List<Object[]> ans = studentEntityRepository.findStudentTeacherCourseByStudentIidAndYear(studentIid,begin_year);
-        return ans;
+        List<GradeFormBean> newAns = new ArrayList<>();
+        // 对查询出来的数据做一个格式的处理
+        for(int i=0;i<ans.size();i++){
+            GradeFormBean gradeFormBean = new GradeFormBean();
+            gradeFormBean.setIid((Integer) ans.get(i)[0]);
+            gradeFormBean.setCourseName( ans.get(i)[1].toString());
+            gradeFormBean.setCredit(Double.parseDouble(ans.get(i)[2].toString()));
+            gradeFormBean.setGrade(Double.parseDouble(ans.get(i)[3].toString()));
+            gradeFormBean.setBeginDate(Date.valueOf(ans.get(i)[4].toString()));
+            newAns.add(gradeFormBean);
+        }
+        return newAns;
     }
 
     @Override

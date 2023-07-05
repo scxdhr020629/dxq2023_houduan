@@ -2,6 +2,7 @@ package com.example.testjpa.controller;
 
 import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
+import com.example.testjpa.formbean.GradeFormBean;
 import com.example.testjpa.result.ResponseData;
 import com.example.testjpa.result.ResponseMsg;
 import com.example.testjpa.service.StudentService;
@@ -44,7 +45,7 @@ public class StudentController {
 
     @PostMapping("/select-grade-by-student-iid")
     public ResponseData selectGradeByStudentIid(@RequestBody Map<String,String> queryExample){
-        List<Object[]> ans= studentService.selectStudentGradeByStudentIid(Integer.parseInt(queryExample.get("student_iid")));
+        List<GradeFormBean> ans= studentService.selectStudentGradeByStudentIid(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
 
@@ -55,7 +56,7 @@ public class StudentController {
      */
     @PostMapping("/select-grade-by-student-iid-and-begin-year")
     public ResponseData selectGradeByStudentIidAndBeginYear(@RequestBody Map<String,String> queryExample){
-        List<Object[]> ans= studentService.selectStudentGradeByStudentIidAndYear(Integer.parseInt(queryExample.get("student_iid")),Integer.parseInt(queryExample.get("begin_year")));
+        List<GradeFormBean> ans= studentService.selectStudentGradeByStudentIidAndYear(Integer.parseInt(queryExample.get("student_iid")),Integer.parseInt(queryExample.get("begin_year")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
 
