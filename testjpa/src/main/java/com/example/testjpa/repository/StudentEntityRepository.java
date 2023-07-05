@@ -13,5 +13,9 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     @Query(value = "select t1.iid,t3.course_name,t1.grade,t2.begin_date from map_student_teacher_course as t1 ,map_teacher_course as t2 , course as t3 where t1.teacher_course__iid = t2.iid and t2.course_iid = t3.iid and student_iid = ?1", nativeQuery = true)
     List<Object[]> findStudentTeacherCourse(Integer studentIid);
 
+    // 写一段原生sql 可以传入年份 查询成绩
+    //带学分 和 年的 信息
+    @Query(value = "select t1.iid,t3.course_name,t3.credit,t1.grade,t2.begin_date from map_student_teacher_course as t1 ,map_teacher_course as t2 , course as t3 where t1.teacher_course__iid = t2.iid and t2.course_iid = t3.iid and student_iid = ?1 and year(begin_date)=?2", nativeQuery = true)
+    List<Object[]> findStudentTeacherCourseByStudentIidAndYear(Integer studentIid,Integer begin_year);
 
 }

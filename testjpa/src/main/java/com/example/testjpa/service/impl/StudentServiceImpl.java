@@ -30,14 +30,15 @@ public class StudentServiceImpl implements StudentService {
     public List<Object[]> selectStudentGradeByStudentIid(Integer studentIid) {
 
         List<Object[]> ans = studentEntityRepository.findStudentTeacherCourse(studentIid);
-        for(int i=0;i<ans.size();i++){
-            for(int j=0;j<ans.get(i).length;j++){
-                System.out.println(ans.get(i)[j]);
-            }
-        }
 
         return ans;
 
+    }
+
+    @Override
+    public List<Object[]> selectStudentGradeByStudentIidAndYear(Integer studentIid, Integer begin_year) {
+        List<Object[]> ans = studentEntityRepository.findStudentTeacherCourseByStudentIidAndYear(studentIid,begin_year);
+        return ans;
     }
 
     @Override

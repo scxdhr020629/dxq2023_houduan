@@ -47,6 +47,18 @@ public class StudentController {
         List<Object[]> ans= studentService.selectStudentGradeByStudentIid(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
+
+    /**
+     * 查询学生成绩 根据 年份 学号
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-grade-by-student-iid-and-begin-year")
+    public ResponseData selectGradeByStudentIidAndBeginYear(@RequestBody Map<String,String> queryExample){
+        List<Object[]> ans= studentService.selectStudentGradeByStudentIidAndYear(Integer.parseInt(queryExample.get("student_iid")),Integer.parseInt(queryExample.get("begin_year")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
     /**
      * 根据student_iid 来查询学生的体测相关信息
      */

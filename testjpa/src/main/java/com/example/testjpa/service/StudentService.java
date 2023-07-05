@@ -13,6 +13,10 @@ public interface StudentService {
     // 根据student_iid 来进行查询学生的成绩信息
     public List<Object[]> selectStudentGradeByStudentIid(Integer studentIid);
 
+    public List<Object[]> selectStudentGradeByStudentIidAndYear(Integer studentIid,Integer begin_year);
+
+
+
     public List<StudentPhysicalEntity> selectStudentPhysicalEntityGrade(Integer studentIid);
 
 
