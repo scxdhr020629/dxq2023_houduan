@@ -4,6 +4,7 @@ import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
 import com.example.testjpa.formbean.GradeFormBean;
 import com.example.testjpa.formbean.QualityFormBean;
+import com.example.testjpa.formbean.StudentInfoFormBean;
 
 import java.util.List;
 
@@ -21,5 +22,7 @@ public interface StudentService {
     public List<StudentPhysicalEntity> selectStudentPhysicalEntityGrade(Integer studentIid);
 
     public List<QualityFormBean> selectStudentQualityGrade(Integer studentIid);
+
+    public List<StudentInfoFormBean> selectStudentAllInfoByUserIid(Integer userIid);
 
 }

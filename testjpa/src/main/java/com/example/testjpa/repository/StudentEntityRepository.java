@@ -24,4 +24,9 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
 //    StudentEntity findStudentEntityByIid(Integer iid);
     StudentEntity findStudentEntityByIid(Integer iid);
 
+
+    // user_iid来查询
+    @Query(value = "select t1.iid,t2.iid as student_iid,t1.user_name,t1.password,t1.user_real_name,t1.role,t1.telephone,t1.user_email,t1.sex,t1.birth_year,t1.user_img,t2.in_year,t2.class_iid,t2.is_warned,t2.is_helped,t2.account_money from user_info as t1,student as t2 where t1.iid = t2.user_iid  and t1.iid =?1", nativeQuery = true)
+    List<Object[]> findStudentByUserIidAllInfo(Integer iid);
+
 }

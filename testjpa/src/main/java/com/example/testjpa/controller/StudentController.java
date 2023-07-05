@@ -4,6 +4,7 @@ import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
 import com.example.testjpa.formbean.GradeFormBean;
 import com.example.testjpa.formbean.QualityFormBean;
+import com.example.testjpa.formbean.StudentInfoFormBean;
 import com.example.testjpa.result.ResponseData;
 import com.example.testjpa.result.ResponseMsg;
 import com.example.testjpa.service.StudentService;
@@ -36,6 +37,22 @@ public class StudentController {
             return new ResponseData(ResponseMsg.FAILED,null);
         }
     }
+
+    @PostMapping("/find-all-info-by-user-iid")
+    public ResponseData findStudentAllInfoByUserIid(@RequestBody Map<String,String> queryExample){
+        List<StudentInfoFormBean> ans = studentService.selectStudentAllInfoByUserIid(Integer.parseInt(queryExample.get("user_iid")));
+        if(ans.size()!=0){
+            return new ResponseData(ResponseMsg.SUCCESS,ans);
+        }
+        else{
+            return new ResponseData(ResponseMsg.FAILED,null);
+        }
+    }
+
+
+
+
+
 
 
     /**

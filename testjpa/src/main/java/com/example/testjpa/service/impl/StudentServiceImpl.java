@@ -5,6 +5,7 @@ import com.example.testjpa.entity.StudentPhysicalEntity;
 import com.example.testjpa.exception.EchoServiceException;
 import com.example.testjpa.formbean.GradeFormBean;
 import com.example.testjpa.formbean.QualityFormBean;
+import com.example.testjpa.formbean.StudentInfoFormBean;
 import com.example.testjpa.repository.StudentEntityRepository;
 import com.example.testjpa.repository.StudentPhysicalEntityRepository;
 import com.example.testjpa.service.StudentService;
@@ -76,6 +77,11 @@ public class StudentServiceImpl implements StudentService {
         return studentPhysicalEntities;
     }
 
+    /**
+     * 这一部分目前只获得了第一学期得 需要写一个for循环来将里面得八个学期全部得到
+     * @param studentIid
+     * @return
+     */
     @Override
     public List<QualityFormBean> selectStudentQualityGrade(Integer studentIid) {
         StudentEntity studentEntity = studentEntityRepository.findStudentEntityByIid(studentIid);
@@ -138,5 +144,33 @@ public class StudentServiceImpl implements StudentService {
 
         return finalAns;
 
+    }
+
+    @Override
+    public List<StudentInfoFormBean> selectStudentAllInfoByUserIid(Integer userIid) {
+        List<StudentInfoFormBean> finalAns = new ArrayList<>();
+        List<Object[]> oldAns = studentEntityRepository.findStudentByUserIidAllInfo(userIid);
+        for(int i=0;i<oldAns.size();i++){
+            StudentInfoFormBean studentInfoFormBean = new StudentInfoFormBean();
+            studentInfoFormBean.setIid(Integer.parseInt(oldAns.get(i)[0].toString()));
+            studentInfoFormBean.setStudentIid(Integer.parseInt(oldAns.get(i)[1].toString()));
+            studentInfoFormBean.setUserName(oldAns.get(i)[2].toString());
+            studentInfoFormBean.setPassword(oldAns.get(i)[3].toString());
+            studentInfoFormBean.setUserRealName(oldAns.get(i)[4].toString());
+            studentInfoFormBean.setRole(4);
+            studentInfoFormBean.setTelephone(oldAns.get(i)[6].toString());
+            studentInfoFormBean.setUserEmail(oldAns.get(i)[7].toString());
+            studentInfoFormBean.setSex(oldAns.get(i)[8].toString());
+            studentInfoFormBean.setBirthYear(oldAns.get(i)[9].toString());
+            studentInfoFormBean.setUserImg(oldAns.get(i)[10].toString());
+            studentInfoFormBean.setInYear(Date.valueOf(oldAns.get(i)[11].toString()));
+            studentInfoFormBean.setClassIid(Integer.parseInt(oldAns.get(i)[12].toString()));
+            studentInfoFormBean.setIsWarned(Integer.parseInt(oldAns.get(i)[13].toString()));
+            studentInfoFormBean.setIsHelped(Integer.parseInt(oldAns.get(i)[14].toString()));
+            studentInfoFormBean.setAccountMoney(Double.parseDouble(oldAns.get(i)[15].toString()));
+            finalAns.add(studentInfoFormBean);
+        }
+
+        return finalAns;
     }
 }
