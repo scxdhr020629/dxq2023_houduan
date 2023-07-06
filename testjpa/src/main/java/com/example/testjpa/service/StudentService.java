@@ -26,5 +26,10 @@ public interface StudentService {
     public List<StudentInfoFormBean> selectStudentAllInfoByUserIid(Integer userIid);
 
 
+    // 学生卡部分
+    public Integer updateStudentMoney(Double addMoney,Integer iid);
+
+
+
 
 }

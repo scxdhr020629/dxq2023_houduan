@@ -95,4 +95,13 @@ public class StudentController {
         List<QualityFormBean> ans = studentService.selectStudentQualityGrade(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
+
+
+    @PostMapping("/add-money")
+    public ResponseData addStudentMoney(@RequestBody Map<String,String> queryExample){
+        Integer ans = studentService.updateStudentMoney(Double.parseDouble(queryExample.get("money")),Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+
 }

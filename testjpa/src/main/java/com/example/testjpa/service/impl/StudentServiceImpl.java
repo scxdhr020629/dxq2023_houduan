@@ -179,21 +179,8 @@ public class StudentServiceImpl implements StudentService {
                 qualityFormBean.setGrade(grade);
             }
 
-
-
-
             finalAns.add(qualityFormBean);
         }
-
-
-
-
-
-
-
-
-
-
 
 
         return finalAns;
@@ -233,5 +220,23 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return finalAns;
+    }
+
+    @Override
+    public Integer updateStudentMoney(Double addMoney,Integer iid) {
+        /**
+         * 如果钱小于账户上的钱的时候 应该不能减少的 少了这个逻辑判断
+         */
+        StudentEntity studentEntity = studentEntityRepository.findStudentEntityByIid(iid);
+        if(studentEntity.getAccountMoney()+addMoney<0){
+            throw  new EchoServiceException("无法满足当前交易，账户金额不足");
+        }
+        try{
+            studentEntityRepository.addStudentMoney(addMoney,iid);
+        }catch (Exception e){
+            throw new EchoServiceException("更新金钱时出错");
+        }
+        return 1;
+
     }
 }
