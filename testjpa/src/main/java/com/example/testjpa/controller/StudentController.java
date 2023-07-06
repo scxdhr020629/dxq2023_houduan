@@ -2,6 +2,7 @@ package com.example.testjpa.controller;
 
 import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
+import com.example.testjpa.formbean.ExaminationFormBean;
 import com.example.testjpa.formbean.GradeFormBean;
 import com.example.testjpa.formbean.QualityFormBean;
 import com.example.testjpa.formbean.StudentInfoFormBean;
@@ -100,6 +101,17 @@ public class StudentController {
     @PostMapping("/add-money")
     public ResponseData addStudentMoney(@RequestBody Map<String,String> queryExample){
         Integer ans = studentService.updateStudentMoney(Double.parseDouble(queryExample.get("money")),Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+    /**
+     * 查询学生的考试
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-examination")
+    public ResponseData selectStudentExamination(@RequestBody Map<String,String> queryExample){
+        List<ExaminationFormBean> ans = studentService.selectStudentExamination(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
 

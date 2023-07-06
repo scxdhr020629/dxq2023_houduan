@@ -4,10 +4,7 @@ import com.example.testjpa.entity.ClazzEntity;
 import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
 import com.example.testjpa.exception.EchoServiceException;
-import com.example.testjpa.formbean.BeginAndEndDateFormBean;
-import com.example.testjpa.formbean.GradeFormBean;
-import com.example.testjpa.formbean.QualityFormBean;
-import com.example.testjpa.formbean.StudentInfoFormBean;
+import com.example.testjpa.formbean.*;
 import com.example.testjpa.repository.ClazzEntityRepository;
 import com.example.testjpa.repository.StudentEntityRepository;
 import com.example.testjpa.repository.StudentPhysicalEntityRepository;
@@ -238,5 +235,42 @@ public class StudentServiceImpl implements StudentService {
         }
         return 1;
 
+    }
+
+    @Override
+    public List<ExaminationFormBean> selectStudentExamination(Integer studentIid) {
+
+        // 先查询出来目前已经有的考试 再根据学生的选课情况来筛查
+
+        List<Object[]> rawAns = studentEntityRepository.findExamInfo();
+        List<ExaminationFormBean> newAns = new ArrayList<>();
+        for(int i=0;i<rawAns.size();i++){
+
+            ExaminationFormBean examinationFormBean = new ExaminationFormBean();
+            examinationFormBean.setIid(Integer.parseInt(rawAns.get(i)[0].toString()));
+            examinationFormBean.setTeacherCourseIid(Integer.parseInt(rawAns.get(i)[1].toString()));
+            examinationFormBean.setCourseName(rawAns.get(i)[2].toString());
+            examinationFormBean.setExamDate(Date.valueOf(rawAns.get(i)[3].toString()));
+            examinationFormBean.setLocation(rawAns.get(i)[4].toString());
+            examinationFormBean.setSeat(Integer.parseInt(rawAns.get(i)[5].toString()));
+            newAns.add(examinationFormBean);
+        }
+
+        List<Object[]> rawStuCourseIid = studentEntityRepository.selectStudentCourseByStudentIid(studentIid);
+        List<ExaminationFormBean> finalAns = new ArrayList<>();
+        for(int i =0;i<rawStuCourseIid.size();i++){
+            for(int j=0;j<newAns.size();j++){
+                int stcIid = Integer.parseInt(rawStuCourseIid.get(i)[0].toString());
+                int newAnsStcIid = newAns.get(j).getTeacherCourseIid();
+                if(stcIid==newAnsStcIid){
+                    finalAns.add(newAns.get(j));
+                }
+            }
+        }
+
+
+
+
+        return finalAns;
     }
 }

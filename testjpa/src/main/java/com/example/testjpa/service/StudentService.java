@@ -2,6 +2,7 @@ package com.example.testjpa.service;
 
 import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
+import com.example.testjpa.formbean.ExaminationFormBean;
 import com.example.testjpa.formbean.GradeFormBean;
 import com.example.testjpa.formbean.QualityFormBean;
 import com.example.testjpa.formbean.StudentInfoFormBean;
@@ -28,6 +29,9 @@ public interface StudentService {
 
     // 学生卡部分
     public Integer updateStudentMoney(Double addMoney,Integer iid);
+
+    // 查询学生考试
+    public List<ExaminationFormBean> selectStudentExamination(Integer studentIid);
 
 
 

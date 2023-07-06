@@ -49,6 +49,28 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     void addStudentMoney(Double money,Integer iid);
 
 
+    @Query(value = "SELECT\n" +
+            "\tt1.iid,\n" +
+            "\tt1.teacher_course_iid,\n" +
+            "\tt3.course_name,\n" +
+            "\tt1.exam_date ,\n" +
+            "\tt1.location,\n" +
+            "\tt1.seat\n" +
+            "\t\n" +
+            "\n" +
+            "FROM\n" +
+            "\texamination AS t1,\n" +
+            "\tmap_teacher_course AS t2,\n" +
+            "\tcourse AS t3 \n" +
+            "\n" +
+            "WHERE\n" +
+            "\tt1.exam_date > CURDATE() \n" +
+            "\tAND t1.teacher_course_iid = t2.iid \n" +
+            "\tAND t2.course_iid = t3.iid\n", nativeQuery = true)
+    public List<Object[]> findExamInfo();
+
+    @Query(value = "select teacher_course__iid from map_student_teacher_course where student_iid = ?1", nativeQuery = true)
+    public List<Object[]> selectStudentCourseByStudentIid(Integer iid);
 
 
 }
