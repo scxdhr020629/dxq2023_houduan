@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -19,4 +20,20 @@ public class NoticeServiceImpl implements NoticeService {
         List<NoticeEntity> rawAns = noticeEntityRepository.findAll();
         return rawAns;
     }
+    @Autowired
+    public NoticeServiceImpl(NoticeEntityRepository noticeRepository) {
+        this.noticeEntityRepository = noticeRepository;
+    }
+
+    @Override
+    public List<NoticeEntity> getAllNotices() {
+        return noticeEntityRepository.findAll();
+    }
+
+    @Override
+    public NoticeEntity getNoticeById(int iid) {
+        Optional<NoticeEntity> optionalNotice = noticeEntityRepository.findById(iid);
+        return optionalNotice.orElse(null);
+    }
+
 }

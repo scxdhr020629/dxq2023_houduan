@@ -77,3 +77,14 @@ testjpa/target/classes/com/example/testjpa/service/NoticeService.class
 testjpa/target/classes/com/example/testjpa/service/UserInfoService.class
 testjpa/target/classes/com/example/testjpa/TestjpaApplication.class
 testjpa/target/classes/com/example/testjpa/utils/DateUtils.class
+testjpa/target/surefire-reports/2023-07-06T19-44-01_664-jvmRun1.dump
+testjpa/target/classes/com/example/testjpa/service/OffworkService.class
+testjpa/target/classes/com/example/testjpa/service/impl/OffworkServiceImpl.class
+testjpa/target/classes/com/example/testjpa/service/impl/FixServiceImpl.class
+testjpa/target/classes/com/example/testjpa/service/FixService.class
+testjpa/target/classes/com/example/testjpa/repository/OffworkEntityRepository.class
+testjpa/target/classes/com/example/testjpa/repository/FixEntityRepository.class
+testjpa/target/classes/com/example/testjpa/entity/OffworkEntity.class
+testjpa/target/classes/com/example/testjpa/entity/FixEntity.class
+testjpa/target/classes/com/example/testjpa/controller/OffworkController.class
+testjpa/target/classes/com/example/testjpa/controller/FixController.class

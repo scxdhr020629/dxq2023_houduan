@@ -5,10 +5,7 @@ import com.example.testjpa.result.ResponseData;
 import com.example.testjpa.result.ResponseMsg;
 import com.example.testjpa.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +20,15 @@ public class NoticeController {
     public ResponseData findAllNotice(){
         List<NoticeEntity> rawAns = noticeService.findAllNotice();
         return new ResponseData(ResponseMsg.SUCCESS,rawAns);
+    }
+    @GetMapping
+    public List<NoticeEntity> getAllNotices() {
+        return noticeService.getAllNotices();
+    }
+
+    // 根据iid参数获取通知项信息
+    @GetMapping("/{iid}")
+    public NoticeEntity getNoticeById(@PathVariable int iid) {
+        return noticeService.getNoticeById(iid);
     }
 }
