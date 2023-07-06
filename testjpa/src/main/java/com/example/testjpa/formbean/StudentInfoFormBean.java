@@ -24,6 +24,7 @@ public class StudentInfoFormBean {
    String userImg;
    Date inYear;
    Integer classIid;
+   String className;
    Integer isWarned;
    Integer isHelped;
    Double accountMoney;

@@ -1,5 +1,6 @@
 package com.example.testjpa.service.impl;
 
+import com.example.testjpa.entity.ClazzEntity;
 import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
 import com.example.testjpa.exception.EchoServiceException;
@@ -7,6 +8,7 @@ import com.example.testjpa.formbean.BeginAndEndDateFormBean;
 import com.example.testjpa.formbean.GradeFormBean;
 import com.example.testjpa.formbean.QualityFormBean;
 import com.example.testjpa.formbean.StudentInfoFormBean;
+import com.example.testjpa.repository.ClazzEntityRepository;
 import com.example.testjpa.repository.StudentEntityRepository;
 import com.example.testjpa.repository.StudentPhysicalEntityRepository;
 import com.example.testjpa.service.StudentService;
@@ -25,6 +27,10 @@ public class StudentServiceImpl implements StudentService {
     // 放学生的体测信息的表
     @Autowired
     private StudentPhysicalEntityRepository studentPhysicalEntityRepository;
+
+    @Autowired
+    private ClazzEntityRepository clazzEntityRepository;
+
     @Override
     public StudentEntity findStudentInfo(Integer userIid) {
         StudentEntity studentEntity = studentEntityRepository.findStudentEntityByUserIid(userIid);
@@ -216,6 +222,13 @@ public class StudentServiceImpl implements StudentService {
             studentInfoFormBean.setIsWarned(Integer.parseInt(oldAns.get(i)[13].toString()));
             studentInfoFormBean.setIsHelped(Integer.parseInt(oldAns.get(i)[14].toString()));
             studentInfoFormBean.setAccountMoney(Double.parseDouble(oldAns.get(i)[15].toString()));
+
+            // 对班级的信息进行一个处理
+            Integer classIid = studentInfoFormBean.getClassIid();
+            ClazzEntity clazzEntity = clazzEntityRepository.findClazzEntityByIid(classIid);
+            String clazzName = clazzEntity.getClassName();
+            studentInfoFormBean.setClassName(clazzName);
+
             finalAns.add(studentInfoFormBean);
         }
 
