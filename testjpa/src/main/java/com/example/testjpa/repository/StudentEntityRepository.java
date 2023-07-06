@@ -21,6 +21,11 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     @Query(value = "select t1.iid,t1.student_iid,t1.get_date,t2.amount,t2.addpoint from map_student_scholarship as t1,scholarship as t2 where t1.scholarship_iid = t2.iid and  student_iid = ?1 and  get_date>=?2 and get_date <= ?3 ", nativeQuery = true)
     List<Object[]> findStudentScholarShipByYear(Integer studentIid,String beginYear,String endYear);
 
+    // 查询素质分 惩罚部分
+    @Query(value = "select t1.iid,t1.student_iid,t1.get_date,t2.punishment_name,t2.decpoint from map_student_punishment as t1,punishment as t2 where t1.punishment_iid = t2.iid and  student_iid = ?1 and  get_date>=?2 and get_date <= ?3", nativeQuery = true)
+    List<Object[]> findStudentPunishmentByYear(Integer studentIid,String beginYear,String endYear);
+
+
 //    StudentEntity findStudentEntityByIid(Integer iid);
     StudentEntity findStudentEntityByIid(Integer iid);
 

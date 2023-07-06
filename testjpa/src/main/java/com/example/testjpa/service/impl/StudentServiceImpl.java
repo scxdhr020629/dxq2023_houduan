@@ -3,6 +3,7 @@ package com.example.testjpa.service.impl;
 import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
 import com.example.testjpa.exception.EchoServiceException;
+import com.example.testjpa.formbean.BeginAndEndDateFormBean;
 import com.example.testjpa.formbean.GradeFormBean;
 import com.example.testjpa.formbean.QualityFormBean;
 import com.example.testjpa.formbean.StudentInfoFormBean;
@@ -98,47 +99,94 @@ public class StudentServiceImpl implements StudentService {
         int year4 = year3+1;
         //2024
         int year5 = year4+1;
-
+        List<BeginAndEndDateFormBean> dateList = new ArrayList<>();
         String beginDate1 =year1+"-"+"07"+"-"+"01";
         String endDate1 = year1+"-"+"12"+"-"+"31";
+        BeginAndEndDateFormBean temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate1);
+        temp.setEndDate(endDate1);
+        dateList.add(temp);
         String beginDate2 = year2+"-"+"01"+"-"+"01";
         String endDate2 =year2+"-"+"06"+"-"+"30";
-
+        // 重新赋值
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate2);
+        temp.setEndDate(endDate2);
+        dateList.add(temp);
 
         String beginDate3 =year2+"-"+"07"+"-"+"01";
         String endDate3 = year2+"-"+"12"+"-"+"31";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate3);
+        temp.setEndDate(endDate3);
+        dateList.add(temp);
         String beginDate4 = year3+"-"+"01"+"-"+"01";
         String endDate4 =year3+"-"+"06"+"-"+"30";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate4);
+        temp.setEndDate(endDate4);
+        dateList.add(temp);
 
         String beginDate5 =year3+"-"+"07"+"-"+"01";
         String endDate5 = year3+"-"+"12"+"-"+"31";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate5);
+        temp.setEndDate(endDate5);
+        dateList.add(temp);
         String beginDate6 = year4+"-"+"01"+"-"+"01";
         String endDate6 =year4+"-"+"06"+"-"+"30";
-
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate6);
+        temp.setEndDate(endDate6);
+        dateList.add(temp);
         String beginDate7 =year4+"-"+"07"+"-"+"01";
         String endDate7 = year4+"-"+"12"+"-"+"31";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate7);
+        temp.setEndDate(endDate7);
+        dateList.add(temp);
         String beginDate8 = year5+"-"+"01"+"-"+"01";
         String endDate8 =year5+"-"+"06"+"-"+"30";
-
-
-        System.out.println(beginDate1);
-        System.out.println(endDate8);
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate8);
+        temp.setEndDate(endDate8);
+        dateList.add(temp);
 
         List<QualityFormBean> finalAns = new ArrayList<>();
+        for(int i = 0;i<dateList.size();i++){
+            List<Object[]> rawAns =studentEntityRepository.findStudentScholarShipByYear(studentIid,dateList.get(i).getBeginDate(),dateList.get(i).getEndDate());
 
-        List<Object[]> rawAns1 =studentEntityRepository.findStudentScholarShipByYear(studentIid,beginDate1,endDate1);
-        QualityFormBean qualityFormBean = new QualityFormBean();
-        qualityFormBean.setIid(1);
-        qualityFormBean.setPeriod("第一学期");
-        for(int i =0;i<rawAns1.size();i++){
-            int grade = qualityFormBean.getGrade();
+            QualityFormBean qualityFormBean = new QualityFormBean();
+            qualityFormBean.setIid(i+1);
+            for(int j=0;j<rawAns.size();j++){
+                int grade = qualityFormBean.getGrade();
+                grade = grade +Integer.parseInt(rawAns.get(j)[4].toString());
 
-            grade = grade +Integer.parseInt(rawAns1.get(i)[4].toString());
-            System.out.println(grade);
-            qualityFormBean.setGrade(grade);
+                qualityFormBean.setGrade(grade);
+            }
 
+            List<Object[]> rawAns1 = studentEntityRepository.findStudentPunishmentByYear(studentIid,dateList.get(i).getBeginDate(),dateList.get(i).getEndDate());
+            for(int j=0;j<rawAns1.size();j++){
+                int grade = qualityFormBean.getGrade();
+                grade = grade +Integer.parseInt(rawAns1.get(j)[4].toString());
+
+                qualityFormBean.setGrade(grade);
+            }
+
+
+
+
+            finalAns.add(qualityFormBean);
         }
-        finalAns.add(qualityFormBean);
+
+
+
+
+
+
+
+
+
 
 
 

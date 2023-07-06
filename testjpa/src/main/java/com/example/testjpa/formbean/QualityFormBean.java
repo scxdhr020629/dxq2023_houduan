@@ -5,7 +5,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 public class QualityFormBean {
 
     Integer iid;
-    String period;
+//    String period;
     //这里就直接iid了
     int grade;
 
@@ -17,13 +17,13 @@ public class QualityFormBean {
         this.iid = iid;
     }
 
-    public String getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(String period) {
-        this.period = period;
-    }
+//    public String getPeriod() {
+//        return period;
+//    }
+//
+//    public void setPeriod(String period) {
+//        this.period = period;
+//    }
 
     public int getGrade() {
         return grade;
