@@ -509,11 +509,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<GradeFormBean> selectCourseByStudentIidAndCreditAndYear(Integer studentIid, String credit,String term) {
+    public List<CourseFormBean> selectCourseByStudentIidAndCreditAndYear(Integer studentIid, String credit,String term) {
         StudentEntity studentEntity = studentEntityRepository.findStudentEntityByIid(studentIid);
         Date inYear = studentEntity.getInYear();
 
         int year =inYear.toLocalDate().getYear();
+        int orginalYear = Integer.parseInt(term);
         String beginDate = null;
         String endDate = null;
         if(term!=null){
@@ -526,15 +527,31 @@ public class StudentServiceImpl implements StudentService {
         }
 
         List<Object[]> rawAns = studentEntityRepository.findCourseByStudentIidAndCreditAndBeginDateAndEndDate(studentIid,credit,beginDate,endDate);
-        List<GradeFormBean> finalAns = new ArrayList<>();
+//        List<GradeFormBean> finalAns = new ArrayList<>();
+        List<CourseFormBean> finalAns = new ArrayList<>();
         for(int i=0;i<rawAns.size();i++){
-            GradeFormBean gradeFormBean = new GradeFormBean();
-            gradeFormBean.setIid(Integer.parseInt(rawAns.get(i)[0].toString()));
-            gradeFormBean.setCourseName(rawAns.get(i)[1].toString());
-            gradeFormBean.setCredit(Double.parseDouble(rawAns.get(i)[2].toString()));
-            gradeFormBean.setGrade(Double.parseDouble(rawAns.get(i)[3].toString()));
-            gradeFormBean.setBeginDate(Date.valueOf(rawAns.get(i)[4].toString()));
-            finalAns.add(gradeFormBean);
+//            GradeFormBean gradeFormBean = new GradeFormBean();
+//            gradeFormBean.setIid(Integer.parseInt(rawAns.get(i)[0].toString()));
+//            gradeFormBean.setCourseName(rawAns.get(i)[1].toString());
+//            gradeFormBean.setCredit(Double.parseDouble(rawAns.get(i)[2].toString()));
+//            gradeFormBean.setGrade(Double.parseDouble(rawAns.get(i)[3].toString()));
+//            gradeFormBean.setBeginDate(Date.valueOf(rawAns.get(i)[4].toString()));
+//            finalAns.add(gradeFormBean);
+            CourseFormBean courseFormBean = new CourseFormBean();
+            courseFormBean.setIid(Integer.parseInt(rawAns.get(i)[0].toString()));
+            courseFormBean.setCourseName(rawAns.get(i)[1].toString());
+            courseFormBean.setCredit(rawAns.get(i)[2].toString());
+            courseFormBean.setGrade(rawAns.get(i)[3].toString());
+            if(orginalYear == 1){
+                courseFormBean.setTerm("第一学期");
+            }else if(orginalYear == 2){
+                courseFormBean.setTerm("第二学期");
+            } else if (orginalYear==3) {
+                courseFormBean.setTerm("第三学期");
+            } else if (orginalYear==4) {
+                courseFormBean.setTerm("第四学期");
+            }
+            finalAns.add(courseFormBean);
         }
         return finalAns;
 
