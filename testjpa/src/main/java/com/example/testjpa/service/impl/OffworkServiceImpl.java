@@ -26,4 +26,8 @@ public class OffworkServiceImpl implements OffworkService {
     public OffworkEntity addOffwork(OffworkEntity offwork) {
         return offworkRepository.save(offwork);
     }
+    @Override
+    public void deleteOffworkByIid(int iid) {
+        offworkRepository.deleteById(iid);
+    }
 }

@@ -24,11 +24,11 @@ public class OffworkEntity {
     @Column(name = "applydate")
     private Date applyDate;
     @Basic
-    @Column(name = "content")
+      @Column(name = "content")
     private String content;
     @Basic
     @Column(name = "status")
-    private String status="待审核";
+    private String status;
 
     public int getIid() {
         return iid;

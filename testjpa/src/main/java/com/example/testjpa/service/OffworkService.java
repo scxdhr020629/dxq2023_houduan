@@ -7,4 +7,6 @@ import java.util.List;
 public interface OffworkService {
     List<OffworkEntity> getOffworkByStudentId(Integer studentId);
     OffworkEntity addOffwork(OffworkEntity offwork);
+    void deleteOffworkByIid(int iid);
+
 }
