@@ -124,4 +124,23 @@ public class StudentController {
     }
 
 
+    @PostMapping("/update-dormitory-water-power-price")
+    public ResponseData updateStudentDormitoryWaterAndPowerPrice(@RequestBody Map<String,String> queryExample){
+        Integer ans = studentService.updateDormitoryPowerAndWater(Integer.parseInt(queryExample.get("dormitory_water_power_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+    /**
+     * 查询学生宿舍
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-dormitory-student-iid")
+    public ResponseData selectDormitoryByStudentIid(@RequestBody Map<String,String> queryExample){
+        List<DormitoryFormBean> ans = studentService.selectDormitoryByStuIid(Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+
+
 }
