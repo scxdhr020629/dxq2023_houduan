@@ -22,6 +22,7 @@ public class FixController {
 
     @PostMapping("/fixes/add")
     public ResponseData addFix(@RequestBody FixEntity fixEntity) {
+        fixService.addFix(fixEntity);
         return new ResponseData(ResponseMsg.SUCCESS);
     }
 }
