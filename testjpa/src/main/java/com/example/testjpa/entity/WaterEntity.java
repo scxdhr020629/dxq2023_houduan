@@ -27,26 +27,8 @@ public class WaterEntity {
     @Basic
     @Column(name = "appeal_date")
     private Date appealDate;
-    @Transient
-    private String dBuilding;
-    @Transient
-    private String dNumber;
 
-    public String getDBuilding() {
-        return dBuilding;
-    }
 
-    public void setDBuilding(String dBuilding) {
-        this.dBuilding = dBuilding;
-    }
-
-    public String getDNumber() {
-        return dNumber;
-    }
-
-    public void setDNumber(String dNumber) {
-        this.dNumber = dNumber;
-    }
 
     public int getIid() {
         return iid;

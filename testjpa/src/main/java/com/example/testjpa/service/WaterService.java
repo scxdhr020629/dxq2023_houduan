@@ -2,8 +2,11 @@ package com.example.testjpa.service;
 
 import com.example.testjpa.entity.WaterEntity;
 
+import java.util.List;
+
 
 public interface WaterService {
 
-    WaterEntity AddWater (WaterEntity waterEntity);
+    List<WaterEntity> findAll();
+    void AddWater (WaterEntity waterEntity);
 }

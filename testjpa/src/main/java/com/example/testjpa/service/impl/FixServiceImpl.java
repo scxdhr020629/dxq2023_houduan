@@ -6,6 +6,8 @@ import com.example.testjpa.service.FixService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FixServiceImpl implements FixService {
 
@@ -20,4 +22,15 @@ public class FixServiceImpl implements FixService {
     public FixEntity addFix(FixEntity fixEntity) {
         return fixEntityRepository.save(fixEntity);
     }
+
+    @Override
+    public void deleteFixByIid(int iid) {
+        fixEntityRepository.deleteById(iid);
+    }
+
+    @Override
+    public List<FixEntity> getFixByStuName(String stuName) {
+        return fixEntityRepository.findByStuName(stuName);
+    }
+
 }

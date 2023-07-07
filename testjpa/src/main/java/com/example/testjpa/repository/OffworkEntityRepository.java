@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface OffworkEntityRepository extends CrudRepository<OffworkEntity, Integer> {
     List<OffworkEntity> findByStudentIid(Integer studentIid);
+
+
 }
 
