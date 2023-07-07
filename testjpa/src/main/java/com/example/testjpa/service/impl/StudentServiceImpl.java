@@ -475,6 +475,7 @@ public class StudentServiceImpl implements StudentService {
         List finalAns = new ArrayList<>();
         for(int i=0;i<dateList.size();i++){
             List<Object[]> rawAns = studentEntityRepository.findStudentScholarShipInfoV(studentIid,dateList.get(i).getBeginDate(),dateList.get(i).getEndDate());
+
             List<ScholarShipFormBean> newAns = new ArrayList<>();
             for(int j=0;j<rawAns.size();j++){
                 ScholarShipFormBean scholarShipFormBean = new ScholarShipFormBean();
@@ -485,6 +486,19 @@ public class StudentServiceImpl implements StudentService {
                 newAns.add(scholarShipFormBean);
             }
             finalAns.add(newAns);
+
+            rawAns = studentEntityRepository.findStudentPunishmentByYear(studentIid,dateList.get(i).getBeginDate(),dateList.get(i).getEndDate());
+            newAns = new ArrayList<>();
+            for(int j=0;j<rawAns.size();j++){
+                ScholarShipFormBean scholarShipFormBean = new ScholarShipFormBean();
+                scholarShipFormBean.setIid(Integer.parseInt(rawAns.get(j)[0].toString()));
+                scholarShipFormBean.setStudentIid(Integer.parseInt(rawAns.get(j)[1].toString()));
+                scholarShipFormBean.setGetDate(Date.valueOf(rawAns.get(j)[2].toString()));
+                scholarShipFormBean.setScholarShipName(rawAns.get(j)[3].toString());
+                newAns.add(scholarShipFormBean);
+            }
+            finalAns.add(newAns);
+
         }
 
         return finalAns;

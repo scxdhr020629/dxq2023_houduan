@@ -108,7 +108,7 @@ public class StudentController {
      * @param queryExample
      * @return
      */
-    @PostMapping("/select-student-scholarShip-all")
+    @PostMapping("/select-student-scholarShip-punishment-all")
     public ResponseData selectStudentScholarShip(@RequestBody Map<String,String> queryExample){
         List ans = studentService.selectScholarShipByStudentIid(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);

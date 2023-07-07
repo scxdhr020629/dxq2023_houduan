@@ -50,6 +50,8 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
 
 
 
+
+
 //    StudentEntity findStudentEntityByIid(Integer iid);
     // 根据student iid 来进行
     StudentEntity findStudentEntityByIid(Integer iid);
