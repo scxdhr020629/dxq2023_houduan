@@ -16,12 +16,19 @@ public class FixEntity {
     @Basic
     @Column(name = "phone")
     private String phone;
+
+
+
     @Basic
     @Column(name = "d_buiding")
     private String dBuiding;
+
     @Basic
     @Column(name = "d_number")
     private String dNumber;
+
+
+
     @Basic
     @Column(name = "fix_content")
     private String fixContent;
@@ -50,21 +57,23 @@ public class FixEntity {
         this.phone = phone;
     }
 
-    public String getDBuiding() {
+
+    public String getdBuiding() {
         return dBuiding;
     }
 
-    public void setDBuiding(String dBuiding) {
+    public void setdBuiding(String dBuiding) {
         this.dBuiding = dBuiding;
     }
 
-    public String getDNumber() {
+    public String getdNumber() {
         return dNumber;
     }
 
-    public void setDNumber(String dNumber) {
+    public void setdNumber(String dNumber) {
         this.dNumber = dNumber;
     }
+
 
     public String getFixContent() {
         return fixContent;
