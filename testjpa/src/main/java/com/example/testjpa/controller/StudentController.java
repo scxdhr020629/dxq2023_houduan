@@ -103,6 +103,24 @@ public class StudentController {
     }
 
 
+    /**
+     * 查询奖学金 所有
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-student-scholarShip-all")
+    public ResponseData selectStudentScholarShip(@RequestBody Map<String,String> queryExample){
+        List ans = studentService.selectScholarShipByStudentIid(Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+
+
+
+
+
+
+
     @PostMapping("/add-money")
     public ResponseData addStudentMoney(@RequestBody Map<String,String> queryExample){
         Integer ans = studentService.updateStudentMoney(Double.parseDouble(queryExample.get("money")),Integer.parseInt(queryExample.get("student_iid")));
@@ -148,6 +166,8 @@ public class StudentController {
         List<DormitoryFormBean> ans = studentService.selectDormitoryByStuIid(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
+
+
 
 
 

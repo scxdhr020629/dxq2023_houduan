@@ -42,7 +42,10 @@ public interface StudentService {
     public List<GPAFormBean> selectGpaByStuIid(Integer studentIid);
 
 
-
+    /**
+     * 奖惩
+     */
+    public List selectScholarShipByStudentIid(Integer studentIid);
 
 
 

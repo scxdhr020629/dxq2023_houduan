@@ -32,6 +32,24 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     List<Object[]> findStudentPunishmentByYear(Integer studentIid,String beginYear,String endYear);
 
 
+
+
+    // 不看素质分的奖惩 其实和上面还是同一个东西
+    @Query(value = "select t1.iid,t1.student_iid,t1.get_date,t2.scholarship_name,t2.amount,t2.addpoint from map_student_scholarship as t1,scholarship as t2 where t1.scholarship_iid = t2.iid and  student_iid = ?1 \n" +
+            "and get_date >= ?2 \n" +
+            "and get_date <= ?3 ", nativeQuery = true)
+    List<Object[]> findStudentScholarShipInfoV(Integer studentIid,String beginYear,String endYear);
+
+
+
+
+
+
+
+
+
+
+
 //    StudentEntity findStudentEntityByIid(Integer iid);
     // 根据student iid 来进行
     StudentEntity findStudentEntityByIid(Integer iid);
