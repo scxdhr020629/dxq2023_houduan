@@ -91,7 +91,7 @@ public class StudentController {
 
     @PostMapping("/select-course-by-student-iid-credit-date")
     public ResponseData selectGradeByStudentIidAndCreditAndDate(@RequestBody Map<String,String> queryExample){
-        List<GradeFormBean> ans= studentService.selectCourseByStudentIidAndCreditAndYear(Integer.parseInt(queryExample.get("student_iid")),queryExample.get("credit"),queryExample.get("term"));
+        List<CourseFormBean> ans= studentService.selectCourseByStudentIidAndCreditAndYear(Integer.parseInt(queryExample.get("student_iid")),queryExample.get("credit"),queryExample.get("term"));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
 
