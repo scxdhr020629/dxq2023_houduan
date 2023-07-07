@@ -305,4 +305,22 @@ public class StudentServiceImpl implements StudentService {
 
         return 1;
     }
+
+    @Override
+    public List<DormitoryFormBean> selectDormitoryByStuIid(Integer studentIid) {
+        List<Object[]> rawAns = studentEntityRepository.selectDormitoryByStudentIid(studentIid);
+        List<DormitoryFormBean> finalAns = new ArrayList<>();
+        for(int i=0;i<rawAns.size();i++){
+            DormitoryFormBean dormitoryFormBean = new DormitoryFormBean();
+            dormitoryFormBean.setDormitoryIid(Integer.parseInt(rawAns.get(i)[0].toString()));
+            dormitoryFormBean.setBuildingName(rawAns.get(i)[1].toString());
+            dormitoryFormBean.setBuildingNumber(rawAns.get(i)[2].toString());
+            finalAns.add(dormitoryFormBean);
+        }
+
+        return finalAns;
+
+    }
+
+
 }

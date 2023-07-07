@@ -130,5 +130,17 @@ public class StudentController {
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
 
+    /**
+     * 查询学生宿舍
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-dormitory-student-iid")
+    public ResponseData selectDormitoryByStudentIid(@RequestBody Map<String,String> queryExample){
+        List<DormitoryFormBean> ans = studentService.selectDormitoryByStuIid(Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+
 
 }

@@ -93,5 +93,7 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
 
 
 
-
+    // 根据学生iid 查询宿舍信息
+    @Query(value = "select t1.iid,t1.d_buiding,t1.d_number from dormitory as t1, map_dormitory_student as t2 where t1.iid = t2.dormitory_iid and t2.student_iid = ?1", nativeQuery = true)
+    public List<Object[]> selectDormitoryByStudentIid(Integer iid);
 }
