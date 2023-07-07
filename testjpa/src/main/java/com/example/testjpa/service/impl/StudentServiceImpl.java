@@ -322,5 +322,101 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public List<GPAFormBean> selectGpaByStuIid(Integer studentIid) {
+
+        StudentEntity studentEntity = studentEntityRepository.findStudentEntityByIid(studentIid);
+        Date inYear = studentEntity.getInYear();
+
+        int year =inYear.toLocalDate().getYear();
+        // 2020
+        int year1 = year;
+        // 2021
+        int year2 = year1+1;
+        // 2022
+        int year3 = year2+1;
+        // 2023
+        int year4 = year3+1;
+        //2024
+        int year5 = year4+1;
+        List<BeginAndEndDateFormBean> dateList = new ArrayList<>();
+        String beginDate1 =year1+"-"+"07"+"-"+"01";
+        String endDate1 = year1+"-"+"12"+"-"+"31";
+        BeginAndEndDateFormBean temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate1);
+        temp.setEndDate(endDate1);
+        dateList.add(temp);
+        String beginDate2 = year2+"-"+"01"+"-"+"01";
+        String endDate2 =year2+"-"+"06"+"-"+"30";
+        // 重新赋值
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate2);
+        temp.setEndDate(endDate2);
+        dateList.add(temp);
+
+        String beginDate3 =year2+"-"+"07"+"-"+"01";
+        String endDate3 = year2+"-"+"12"+"-"+"31";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate3);
+        temp.setEndDate(endDate3);
+        dateList.add(temp);
+        String beginDate4 = year3+"-"+"01"+"-"+"01";
+        String endDate4 =year3+"-"+"06"+"-"+"30";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate4);
+        temp.setEndDate(endDate4);
+        dateList.add(temp);
+
+        String beginDate5 =year3+"-"+"07"+"-"+"01";
+        String endDate5 = year3+"-"+"12"+"-"+"31";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate5);
+        temp.setEndDate(endDate5);
+        dateList.add(temp);
+        String beginDate6 = year4+"-"+"01"+"-"+"01";
+        String endDate6 =year4+"-"+"06"+"-"+"30";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate6);
+        temp.setEndDate(endDate6);
+        dateList.add(temp);
+        String beginDate7 =year4+"-"+"07"+"-"+"01";
+        String endDate7 = year4+"-"+"12"+"-"+"31";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate7);
+        temp.setEndDate(endDate7);
+        dateList.add(temp);
+        String beginDate8 = year5+"-"+"01"+"-"+"01";
+        String endDate8 =year5+"-"+"06"+"-"+"30";
+        temp = new BeginAndEndDateFormBean();
+        temp.setBeginDate(beginDate8);
+        temp.setEndDate(endDate8);
+        dateList.add(temp);
+
+
+        List<GPAFormBean> finalAns = new ArrayList<>();
+
+        for(int i=0;i<dateList.size();i++){
+            System.out.println("begin "+dateList.get(i).getBeginDate());
+            System.out.println("end "+dateList.get(i).getEndDate());
+            List<Object[]> rawAns = studentEntityRepository.selectGPAByStudentIidAndYear(studentIid,dateList.get(i).getBeginDate(),dateList.get(i).getEndDate());
+            // 要一学期的绩点
+            System.out.println("rawAnsSize "+rawAns.size());
+            GPAFormBean gpaFormBean = new GPAFormBean();
+            gpaFormBean.setIid(i+1);
+            for(int j=0;j<rawAns.size();j++){
+
+                double gpa = gpaFormBean.getGpa();
+                gpa = gpa +Double.parseDouble(rawAns.get(j)[2].toString());
+                System.out.println("gpa    "+gpa);
+                gpaFormBean.setGpa(gpa);
+            }
+            gpaFormBean.setGpa(gpaFormBean.getGpa()/rawAns.size());
+            System.out.println(gpaFormBean.getGpa()/rawAns.size());
+           finalAns.add(gpaFormBean);
+        }
+        return finalAns;
+
+    }
+
 
 }

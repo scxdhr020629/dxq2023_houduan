@@ -48,8 +48,16 @@ public class StudentController {
     }
 
 
-
-
+    /**
+     * 查询gpa all
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-gpaAll")
+    public ResponseData selectGpaALL(@RequestBody Map<String,String> queryExample){
+        List<GPAFormBean> ans = studentService.selectGpaByStuIid(Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
 
 
 

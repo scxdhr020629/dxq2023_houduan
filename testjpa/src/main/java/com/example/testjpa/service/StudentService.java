@@ -39,6 +39,9 @@ public interface StudentService {
     public List<DormitoryFormBean> selectDormitoryByStuIid(Integer studentIid);
 
 
+    public List<GPAFormBean> selectGpaByStuIid(Integer studentIid);
+
+
 
 
 
