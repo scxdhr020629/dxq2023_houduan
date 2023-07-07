@@ -2,10 +2,7 @@ package com.example.testjpa.service;
 
 import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
-import com.example.testjpa.formbean.ExaminationFormBean;
-import com.example.testjpa.formbean.GradeFormBean;
-import com.example.testjpa.formbean.QualityFormBean;
-import com.example.testjpa.formbean.StudentInfoFormBean;
+import com.example.testjpa.formbean.*;
 
 import java.util.List;
 
@@ -33,7 +30,7 @@ public interface StudentService {
     // 查询学生考试
     public List<ExaminationFormBean> selectStudentExamination(Integer studentIid);
 
-
+    public List<DormitoryWaterAndPowerFormBean> selectStudentDormitoryWaterAndPower(Integer studentIid);
 
 
 }

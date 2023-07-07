@@ -73,4 +73,15 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     public List<Object[]> selectStudentCourseByStudentIid(Integer iid);
 
 
+    //写一个学生 住宿费所有信息的查询 传入student_iid即可
+    @Query(value = "select t1.iid,t1.dormitory_iid,t3.d_buiding,t3.d_number,t2.power_price,t2.used_water_price,t2.begin_date,t2.end_date,t2.`status` from map_dormitory_student as t1,dormitory_power_water as t2 ,dormitory as t3\n" +
+            "\n" +
+            "where t1.dormitory_iid= t2.dormitory_iid\n" +
+            "and t1.dormitory_iid = t3.iid\n" +
+            "and t1.student_iid = ?1", nativeQuery = true)
+    public List<Object[]> selectStudentDormitoryWaterAndPower(Integer studentIid);
+
+
+
+
 }

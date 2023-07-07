@@ -273,4 +273,25 @@ public class StudentServiceImpl implements StudentService {
 
         return finalAns;
     }
+
+    @Override
+    public List<DormitoryWaterAndPowerFormBean> selectStudentDormitoryWaterAndPower(Integer studentIid) {
+        List<Object[]> rawAns = studentEntityRepository.selectStudentDormitoryWaterAndPower(studentIid);
+        List<DormitoryWaterAndPowerFormBean> finalAns = new ArrayList<>();
+        for(int i=0;i<rawAns.size();i++){
+            DormitoryWaterAndPowerFormBean dormitoryWaterAndPowerFormBean = new DormitoryWaterAndPowerFormBean();
+            dormitoryWaterAndPowerFormBean.setIid(Integer.parseInt(rawAns.get(i)[0].toString()));
+            dormitoryWaterAndPowerFormBean.setDormitoryIid(Integer.parseInt(rawAns.get(i)[1].toString()));
+            dormitoryWaterAndPowerFormBean.setBuildingName(rawAns.get(i)[2].toString());
+            dormitoryWaterAndPowerFormBean.setBuildingNumber(rawAns.get(i)[3].toString());
+            dormitoryWaterAndPowerFormBean.setPowerPrice(Double.parseDouble(rawAns.get(i)[4].toString()));
+            dormitoryWaterAndPowerFormBean.setWaterPrice(Double.parseDouble(rawAns.get(i)[5].toString()));
+            dormitoryWaterAndPowerFormBean.setBeginDate(Date.valueOf(rawAns.get(i)[6].toString()));
+            dormitoryWaterAndPowerFormBean.setEndDate(Date.valueOf(rawAns.get(i)[7].toString()));
+            dormitoryWaterAndPowerFormBean.setStatus(rawAns.get(i)[8].toString());
+            finalAns.add(dormitoryWaterAndPowerFormBean);
+        }
+
+        return finalAns;
+    }
 }

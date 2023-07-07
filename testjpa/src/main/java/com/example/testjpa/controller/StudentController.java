@@ -2,10 +2,7 @@ package com.example.testjpa.controller;
 
 import com.example.testjpa.entity.StudentEntity;
 import com.example.testjpa.entity.StudentPhysicalEntity;
-import com.example.testjpa.formbean.ExaminationFormBean;
-import com.example.testjpa.formbean.GradeFormBean;
-import com.example.testjpa.formbean.QualityFormBean;
-import com.example.testjpa.formbean.StudentInfoFormBean;
+import com.example.testjpa.formbean.*;
 import com.example.testjpa.result.ResponseData;
 import com.example.testjpa.result.ResponseMsg;
 import com.example.testjpa.service.StudentService;
@@ -112,6 +109,17 @@ public class StudentController {
     @PostMapping("/select-examination")
     public ResponseData selectStudentExamination(@RequestBody Map<String,String> queryExample){
         List<ExaminationFormBean> ans = studentService.selectStudentExamination(Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+    /**
+     * 查询水电费
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-dormitory-water-power-price")
+    public ResponseData selectStudentDormitoryWaterAndPowerPrice(@RequestBody Map<String,String> queryExample){
+        List<DormitoryWaterAndPowerFormBean> ans = studentService.selectStudentDormitoryWaterAndPower(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
 
