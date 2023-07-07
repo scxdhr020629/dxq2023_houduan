@@ -1,5 +1,7 @@
 package com.example.testjpa.controller;
 import com.example.testjpa.entity.OffworkEntity;
+import com.example.testjpa.result.ResponseData;
+import com.example.testjpa.result.ResponseMsg;
 import com.example.testjpa.service.OffworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,7 @@ public class OffworkController {
     }
 
     @PostMapping("/add")
-    public OffworkEntity addOffwork(@RequestBody OffworkEntity offwork) {
-        return offworkService.addOffwork(offwork);
+    public ResponseData addOffwork(@RequestBody OffworkEntity offwork) {
+        return new ResponseData(ResponseMsg.SUCCESS);
     }
 }

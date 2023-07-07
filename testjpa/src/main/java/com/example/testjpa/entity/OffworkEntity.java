@@ -28,7 +28,7 @@ public class OffworkEntity {
     private String content;
     @Basic
     @Column(name = "status")
-    private String status;
+    private String status="待审核";
 
     public int getIid() {
         return iid;
