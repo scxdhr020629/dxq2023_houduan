@@ -47,6 +47,6 @@ public interface StudentService {
      */
     public List selectScholarShipByStudentIid(Integer studentIid);
 
-
+    public List<GradeFormBean> selectCourseByStudentIidAndCreditAndYear(Integer studentIid,String credit,String term);
 
 }

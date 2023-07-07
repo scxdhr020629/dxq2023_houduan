@@ -82,6 +82,19 @@ public class StudentController {
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
 
+
+    /**
+     * test
+     * @param queryExample
+     * @return
+     */
+
+    @PostMapping("/select-course-by-student-iid-credit-date")
+    public ResponseData selectGradeByStudentIidAndCreditAndDate(@RequestBody Map<String,String> queryExample){
+        List<GradeFormBean> ans= studentService.selectCourseByStudentIidAndCreditAndYear(Integer.parseInt(queryExample.get("student_iid")),queryExample.get("credit"),queryExample.get("term"));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
     /**
      * 根据student_iid 来查询学生的体测相关信息
      */

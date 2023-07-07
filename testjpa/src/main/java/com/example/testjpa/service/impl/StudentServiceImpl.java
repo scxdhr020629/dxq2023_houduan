@@ -9,6 +9,7 @@ import com.example.testjpa.repository.ClazzEntityRepository;
 import com.example.testjpa.repository.StudentEntityRepository;
 import com.example.testjpa.repository.StudentPhysicalEntityRepository;
 import com.example.testjpa.service.StudentService;
+import javafx.beans.binding.ObjectExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -504,6 +505,38 @@ public class StudentServiceImpl implements StudentService {
         return finalAns;
 
 
+
+    }
+
+    @Override
+    public List<GradeFormBean> selectCourseByStudentIidAndCreditAndYear(Integer studentIid, String credit,String term) {
+        StudentEntity studentEntity = studentEntityRepository.findStudentEntityByIid(studentIid);
+        Date inYear = studentEntity.getInYear();
+
+        int year =inYear.toLocalDate().getYear();
+        String beginDate = null;
+        String endDate = null;
+        if(term!=null){
+            System.out.println(term);
+            System.out.println(Integer.parseInt(term));
+             year = year+Integer.parseInt(term)-1;
+            beginDate = year+"-07"+"-01";
+            int newYear = year+1;
+            endDate = newYear+"-06"+"-30";
+        }
+
+        List<Object[]> rawAns = studentEntityRepository.findCourseByStudentIidAndCreditAndBeginDateAndEndDate(studentIid,credit,beginDate,endDate);
+        List<GradeFormBean> finalAns = new ArrayList<>();
+        for(int i=0;i<rawAns.size();i++){
+            GradeFormBean gradeFormBean = new GradeFormBean();
+            gradeFormBean.setIid(Integer.parseInt(rawAns.get(i)[0].toString()));
+            gradeFormBean.setCourseName(rawAns.get(i)[1].toString());
+            gradeFormBean.setCredit(Double.parseDouble(rawAns.get(i)[2].toString()));
+            gradeFormBean.setGrade(Double.parseDouble(rawAns.get(i)[3].toString()));
+            gradeFormBean.setBeginDate(Date.valueOf(rawAns.get(i)[4].toString()));
+            finalAns.add(gradeFormBean);
+        }
+        return finalAns;
 
     }
 
