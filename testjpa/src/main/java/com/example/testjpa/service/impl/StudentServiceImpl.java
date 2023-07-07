@@ -294,4 +294,15 @@ public class StudentServiceImpl implements StudentService {
 
         return finalAns;
     }
+
+    @Override
+    public Integer updateDormitoryPowerAndWater(Integer dormitoryPowerAndPriceIid) {
+        try{
+            studentEntityRepository.updateDormitoryWaterAndPower(dormitoryPowerAndPriceIid);
+        }catch (Exception e){
+            throw new EchoServiceException("更新水电费订单状态时出错");
+        }
+
+        return 1;
+    }
 }

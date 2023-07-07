@@ -33,4 +33,7 @@ public interface StudentService {
     public List<DormitoryWaterAndPowerFormBean> selectStudentDormitoryWaterAndPower(Integer studentIid);
 
 
+    public Integer updateDormitoryPowerAndWater(Integer dormitoryPowerAndPriceIid);
+
+
 }

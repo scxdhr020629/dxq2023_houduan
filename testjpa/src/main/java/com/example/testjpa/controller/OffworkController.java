@@ -25,6 +25,7 @@ public class OffworkController {
 
     @PostMapping("/add")
     public ResponseData addOffwork(@RequestBody OffworkEntity offwork) {
+        offworkService.addOffwork(offwork);
         return new ResponseData(ResponseMsg.SUCCESS);
     }
 }

@@ -124,4 +124,11 @@ public class StudentController {
     }
 
 
+    @PostMapping("/update-dormitory-water-power-price")
+    public ResponseData updateStudentDormitoryWaterAndPowerPrice(@RequestBody Map<String,String> queryExample){
+        Integer ans = studentService.updateDormitoryPowerAndWater(Integer.parseInt(queryExample.get("dormitory_water_power_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+
 }

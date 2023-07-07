@@ -49,6 +49,16 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     void addStudentMoney(Double money,Integer iid);
 
 
+    //更改缴费状态
+    @Modifying
+    @Transactional
+    @Query(value = "update dormitory_power_water set `status` = '已缴费' where iid = ?1", nativeQuery = true)
+    void updateDormitoryWaterAndPower(Integer dormitoryWaterAndPowerIid);
+
+
+
+
+
     @Query(value = "SELECT\n" +
             "\tt1.iid,\n" +
             "\tt1.teacher_course_iid,\n" +
@@ -74,7 +84,7 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
 
 
     //写一个学生 住宿费所有信息的查询 传入student_iid即可
-    @Query(value = "select t1.iid,t1.dormitory_iid,t3.d_buiding,t3.d_number,t2.power_price,t2.used_water_price,t2.begin_date,t2.end_date,t2.`status` from map_dormitory_student as t1,dormitory_power_water as t2 ,dormitory as t3\n" +
+    @Query(value = "select t2.iid,t1.dormitory_iid,t3.d_buiding,t3.d_number,t2.power_price,t2.used_water_price,t2.begin_date,t2.end_date,t2.`status` from map_dormitory_student as t1,dormitory_power_water as t2 ,dormitory as t3\n" +
             "\n" +
             "where t1.dormitory_iid= t2.dormitory_iid\n" +
             "and t1.dormitory_iid = t3.iid\n" +
