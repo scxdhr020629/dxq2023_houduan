@@ -48,8 +48,16 @@ public class StudentController {
     }
 
 
-
-
+    /**
+     * 查询gpa all
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-gpaAll")
+    public ResponseData selectGpaALL(@RequestBody Map<String,String> queryExample){
+        List<GPAFormBean> ans = studentService.selectGpaByStuIid(Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
 
 
 
@@ -74,6 +82,19 @@ public class StudentController {
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
 
+
+    /**
+     * test
+     * @param queryExample
+     * @return
+     */
+
+    @PostMapping("/select-course-by-student-iid-credit-date")
+    public ResponseData selectGradeByStudentIidAndCreditAndDate(@RequestBody Map<String,String> queryExample){
+        List<GradeFormBean> ans= studentService.selectCourseByStudentIidAndCreditAndYear(Integer.parseInt(queryExample.get("student_iid")),queryExample.get("credit"),queryExample.get("term"));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
     /**
      * 根据student_iid 来查询学生的体测相关信息
      */
@@ -93,6 +114,24 @@ public class StudentController {
         List<QualityFormBean> ans = studentService.selectStudentQualityGrade(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
+
+
+    /**
+     * 查询奖学金 所有
+     * @param queryExample
+     * @return
+     */
+    @PostMapping("/select-student-scholarShip-punishment-all")
+    public ResponseData selectStudentScholarShip(@RequestBody Map<String,String> queryExample){
+        List ans = studentService.selectScholarShipByStudentIid(Integer.parseInt(queryExample.get("student_iid")));
+        return new ResponseData(ResponseMsg.SUCCESS,ans);
+    }
+
+
+
+
+
+
 
 
     @PostMapping("/add-money")
@@ -140,6 +179,8 @@ public class StudentController {
         List<DormitoryFormBean> ans = studentService.selectDormitoryByStuIid(Integer.parseInt(queryExample.get("student_iid")));
         return new ResponseData(ResponseMsg.SUCCESS,ans);
     }
+
+
 
 
 

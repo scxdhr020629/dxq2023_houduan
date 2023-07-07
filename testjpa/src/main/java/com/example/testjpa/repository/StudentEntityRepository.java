@@ -19,6 +19,15 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     @Query(value = "select t1.iid,t3.course_name,t3.credit,t1.grade,t2.begin_date from map_student_teacher_course as t1 ,map_teacher_course as t2 , course as t3 where t1.teacher_course__iid = t2.iid and t2.course_iid = t3.iid and student_iid = ?1", nativeQuery = true)
     List<Object[]> findStudentTeacherCourse(Integer studentIid);
 
+
+    // 写一个条件的 成绩判断
+    @Query(value="select t1.iid,t3.course_name,t3.credit,t1.grade,t2.begin_date from map_student_teacher_course as t1 ,map_teacher_course as t2 , course as t3 where t1.teacher_course__iid = t2.iid and t2.course_iid = t3.iid and student_iid = ?1 and (t3.credit = ?2 or ?2 is null) and (t2.begin_date >= ?3 or ?3 is null) and (t2.end_date <= ?4 or ?4 is null)", nativeQuery = true)
+    List<Object[]> findCourseByStudentIidAndCreditAndBeginDateAndEndDate(Integer studentIid,String credit, String beginDate, String endDate);
+
+
+
+
+
     // 写一段原生sql 可以传入年份 查询成绩
     //带学分 和 年的 信息
     @Query(value = "select t1.iid,t3.course_name,t3.credit,t1.grade,t2.begin_date from map_student_teacher_course as t1 ,map_teacher_course as t2 , course as t3 where t1.teacher_course__iid = t2.iid and t2.course_iid = t3.iid and student_iid = ?1 and year(begin_date)=?2", nativeQuery = true)
@@ -30,6 +39,26 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     // 查询素质分 惩罚部分
     @Query(value = "select t1.iid,t1.student_iid,t1.get_date,t2.punishment_name,t2.decpoint from map_student_punishment as t1,punishment as t2 where t1.punishment_iid = t2.iid and  student_iid = ?1 and  get_date>=?2 and get_date <= ?3", nativeQuery = true)
     List<Object[]> findStudentPunishmentByYear(Integer studentIid,String beginYear,String endYear);
+
+
+
+
+    // 不看素质分的奖惩 其实和上面还是同一个东西
+    @Query(value = "select t1.iid,t1.student_iid,t1.get_date,t2.scholarship_name,t2.amount,t2.addpoint from map_student_scholarship as t1,scholarship as t2 where t1.scholarship_iid = t2.iid and  student_iid = ?1 \n" +
+            "and get_date >= ?2 \n" +
+            "and get_date <= ?3 ", nativeQuery = true)
+    List<Object[]> findStudentScholarShipInfoV(Integer studentIid,String beginYear,String endYear);
+
+
+
+
+
+
+
+
+
+
+
 
 
 //    StudentEntity findStudentEntityByIid(Integer iid);
@@ -96,4 +125,25 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, In
     // 根据学生iid 查询宿舍信息
     @Query(value = "select t1.iid,t1.d_buiding,t1.d_number from dormitory as t1, map_dormitory_student as t2 where t1.iid = t2.dormitory_iid and t2.student_iid = ?1", nativeQuery = true)
     public List<Object[]> selectDormitoryByStudentIid(Integer iid);
+
+
+    /**
+     * 绩点的查询 按照八个学期来进行处理
+     * @param studentIid
+     * @param beginYear
+     * @param endYear
+     * @return
+     */
+
+    @Query(value = "select t1.iid,t3.course_name,t1.grade/20,t2.begin_date,t2.end_date from \n" +
+            "map_student_teacher_course as t1,\n" +
+            "map_teacher_course as t2,\n" +
+            "course as t3 \n" +
+            "where t1.student_iid = ?1 \n" +
+            "and t1.teacher_course__iid = t2.iid\n" +
+            "and t2.course_iid = t3.iid\n" +
+            "and begin_date>= ?2 \n" +
+            "and end_date<= ?3 ", nativeQuery = true)
+    public List<Object[]> selectGPAByStudentIidAndYear(Integer studentIid,String beginYear,String endYear);
+
 }

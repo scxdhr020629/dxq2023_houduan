@@ -39,8 +39,14 @@ public interface StudentService {
     public List<DormitoryFormBean> selectDormitoryByStuIid(Integer studentIid);
 
 
+    public List<GPAFormBean> selectGpaByStuIid(Integer studentIid);
 
 
+    /**
+     * 奖惩
+     */
+    public List selectScholarShipByStudentIid(Integer studentIid);
 
+    public List<GradeFormBean> selectCourseByStudentIidAndCreditAndYear(Integer studentIid,String credit,String term);
 
 }
