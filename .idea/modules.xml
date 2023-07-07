@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/dxq2023_houduan.iml" filepath="$PROJECT_DIR$/.idea/dxq2023_houduan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testjpa/testjpa.iml" filepath="$PROJECT_DIR$/testjpa/testjpa.iml" />
+    </modules>
+  </component>
+</project>

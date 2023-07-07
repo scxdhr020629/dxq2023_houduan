@@ -1,6 +1,7 @@
 package com.example.testjpa.controller;
 
 import com.example.testjpa.entity.NoticeEntity;
+import com.example.testjpa.formbean.StudentInfoFormBean;
 import com.example.testjpa.result.ResponseData;
 import com.example.testjpa.result.ResponseMsg;
 import com.example.testjpa.service.NoticeService;

@@ -1,6 +1,8 @@
 package com.example.testjpa.controller;
 
 import com.example.testjpa.entity.FixEntity;
+import com.example.testjpa.result.ResponseData;
+import com.example.testjpa.result.ResponseMsg;
 import com.example.testjpa.service.FixService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +21,7 @@ public class FixController {
     }
 
     @PostMapping("/fixes/add")
-    public FixEntity addFix(@RequestBody FixEntity fixEntity) {
-        return fixService.addFix(fixEntity);
+    public ResponseData addFix(@RequestBody FixEntity fixEntity) {
+        return new ResponseData(ResponseMsg.SUCCESS);
     }
 }
