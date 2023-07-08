@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -514,7 +517,8 @@ public class StudentServiceImpl implements StudentService {
         Date inYear = studentEntity.getInYear();
 
         int year =inYear.toLocalDate().getYear();
-        int orginalYear = Integer.parseInt(term);
+        int newInYear = year;
+        int orginalYear = 0;
         String beginDate = null;
         String endDate = null;
         if(term!=null){
@@ -542,15 +546,38 @@ public class StudentServiceImpl implements StudentService {
             courseFormBean.setCourseName(rawAns.get(i)[1].toString());
             courseFormBean.setCredit(rawAns.get(i)[2].toString());
             courseFormBean.setGrade(rawAns.get(i)[3].toString());
-            if(orginalYear == 1){
-                courseFormBean.setTerm("第一学期");
-            }else if(orginalYear == 2){
-                courseFormBean.setTerm("第二学期");
-            } else if (orginalYear==3) {
-                courseFormBean.setTerm("第三学期");
-            } else if (orginalYear==4) {
-                courseFormBean.setTerm("第四学期");
+//            if(orginalYear == 1){
+//                courseFormBean.setTerm("第一学期");
+//            }else if(orginalYear == 2){
+//                courseFormBean.setTerm("第二学期");
+//            } else if (orginalYear==3) {
+//                courseFormBean.setTerm("第三学期");
+//            } else if (orginalYear==4) {
+//                courseFormBean.setTerm("第四学期");
+//            }else if(orginalYear == 0){
+//                String beginDate = rawAns.get(i)[4].toString();
+//            }
+            String newDate = rawAns.get(i)[4].toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = null;
+            try {
+                date = sdf.parse(newDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int newYear = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH) + 1;
+            if (month >= 7 && month <= 12) {
+                System.out.println("第" + (year - 2020+1) + "学年");
+                courseFormBean.setTerm("第"+(newYear-newInYear+1)+"学年");
+            } else {
+                System.out.println("第" + (newYear-newInYear) + "学年");
+                courseFormBean.setTerm("第"+(newYear-newInYear)+"学年");
+            }
+
             finalAns.add(courseFormBean);
         }
         return finalAns;
