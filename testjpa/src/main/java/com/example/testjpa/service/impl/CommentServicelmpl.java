@@ -28,6 +28,8 @@ public class CommentServicelmpl implements CommentService {
             UserInfoEntity userInfoEntity = userInfoEntityRepository.findUserInfoEntityByIid(commentEntity.getUserIid());
             CommentFormBean commentFormBean = new CommentFormBean();
             commentFormBean.setUserRealName(userInfoEntity.getUserRealName());
+            // test
+            commentFormBean.setIid(commentEntity.getIid());
             commentFormBean.setContent(commentEntity.getContent());
             commentFormBean.setLike(commentEntity.getLikeCount());
             finalAns.add(commentFormBean);
